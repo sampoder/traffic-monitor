@@ -2,8 +2,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Perfect DOS VGA 437'!important;
 }
 
 a {
@@ -13,4 +12,15 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+@font-face
+{
+    font-family: 'Perfect DOS VGA 437';
+    src: url('http://www.braindamage.vg/wp-content/themes/braindamage/dosfont.eot');
+}
+@font-face
+{
+    font-family: 'Perfect DOS VGA 437';
+    src: url('http://www.braindamage.vg/wp-content/themes/braindamage/dosfont.svg#dos') format("svg"), url('http://www.braindamage.vg/wp-content/themes/braindamage/dosfont.ttf') format ('truetype');
 }
