@@ -11,6 +11,7 @@ import {
   Button,
   Portal,
   PopoverContent,
+  Center,
   Box,
   Heading,
   PopoverHeader,
@@ -35,17 +36,32 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Home() {
   const { data, error } = useSWR("/api/fetch", fetcher);
-  if (error) return <div>failed to load</div>;
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [daindex, setIndex] = useState(0);
-
+  if (!data)
+    return (
+      <div
+        style={{
+          padding: "20px",
+          backgroundColor: "#1A202C",
+          height: "100vh",
+          color: "white",
+        }}
+      >
+        <Center>
+          <Heading>Loading...</Heading>
+        </Center>
+      </div>
+    );
   const handleIndexClick = (newIndex) => {
     setIndex(newIndex);
     onOpen();
   };
-  let title="Singapore Traffic Monitor"
-  let description = "View live imagery from traffic cameras around the island."
-  let image= "https://cloud-bffijv1wu.vercel.app/0e994e359-db3e-4d29-89cc-d2bf3d6ad391.jpg"
+  let title = "Singapore Traffic Monitor";
+  let description = "View live imagery from traffic cameras around the island.";
+  let image =
+    "https://cloud-bffijv1wu.vercel.app/0e994e359-db3e-4d29-89cc-d2bf3d6ad391.jpg";
   if (!data) return <div></div>;
   return (
     <div style={{ padding: "20px", backgroundColor: "#1A202C" }}>
@@ -85,19 +101,25 @@ export default function Home() {
         </GridItem>
         {data.map((camera, index) => (
           <GridItem colSpan={1} p="1">
-            <Image
-              onClick={() => handleIndexClick(index)}
-              width="100%"
-              height={["100%", "150px", "150px"]}
-              src={
-                camera["image_metadata"].md5 !=
-                "b5fb3395e22ca1564fc5c16ef746e8a9"
-                  ? camera.image
-                  : "https://cdn.hashnode.com/res/hashnode/image/upload/v1571300841959/Yjr-2Gwib.jpeg"
-              }
+            <Box
+              style={{ background: "grey" }}
               borderRadius="lg"
               boxShadow="md"
-            />
+            >
+              <Image
+                onClick={() => handleIndexClick(index)}
+                width="100%"
+                height={["100%", "150px", "150px"]}
+                src={
+                  camera["image_metadata"].md5 !=
+                  "b5fb3395e22ca1564fc5c16ef746e8a9"
+                    ? camera.image
+                    : "https://cdn.hashnode.com/res/hashnode/image/upload/v1571300841959/Yjr-2Gwib.jpeg"
+                }
+                borderRadius="lg"
+                boxShadow="md"
+              />
+            </Box>
           </GridItem>
         ))}
       </Grid>
