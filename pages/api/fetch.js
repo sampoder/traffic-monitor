@@ -27,6 +27,5 @@ export default async (req, res) => {
     )
   );
   res.statusCode = 200;
-  console.log(newcameras);
   res.json(newcameras);
 };
